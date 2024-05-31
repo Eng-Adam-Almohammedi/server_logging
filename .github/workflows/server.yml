@@ -1,0 +1,27 @@
+name: Run Logging Server
+
+on: [push]
+
+jobs:
+  run-server:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Start server
+      run: |
+        node server.js &
+        sleep 10 # Give the server time to start
+
+    - name: Keep alive
+      run: sleep infinity
